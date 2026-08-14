@@ -15,10 +15,6 @@ success, frame = video.read() #gives access to video
 print(success)
 cv2.imwrite('data/processed/first_frame.jpg', frame) #saves image
 
-video.set(cv2.CAP_PROP_POS_FRAMES, 9000) #changing current frame position
-success, frame = video.read()
-cv2.imwrite("data/processed/frame_5min.jpg", frame)
-
 interval = 60
 # frame_number = int(interval * fps)
 # print(frame_number)
@@ -31,4 +27,8 @@ while current_time <= duration:
     frame_number = int(current_time * fps)
     video.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
     success, frame = video.read()
-    cv2.imwrite("data/processed/frame_1min.jpg", frame)
+    if success:
+        filename = f"data/processed/frame_{current_time}.jpg"
+        cv2.imwrite(filename, frame)
+    current_time += 60
+
